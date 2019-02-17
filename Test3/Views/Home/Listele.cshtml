@@ -1,0 +1,39 @@
+﻿@using Test3.Models
+@model IndexModel
+@{
+    ViewBag.Title = "Listele";
+    Layout = "~/Views/Shared/_LayoutPage1.cshtml";
+}
+<link href="~/Content/bootstrap.min.css" rel="stylesheet" />
+@*<h2>Listele</h2>*@
+
+<div class="form-group">
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Adı</th>
+                <th>Soyadı</th>
+                <th>Numarası</th>
+                <th>Ders Adı</th>
+                <th>Vize Notu</th>
+                <th>Final Notu</th>
+                <th>Ortalaması</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach(var _liste in Model.Ogrenciler)
+            {
+            <tr>
+                <td>@_liste.Ad</td>
+                <td>@_liste.Soyad</td>
+                <td>@_liste.Numara</td>
+                <td>@_liste.Ders</td>
+                <td>@_liste.Vize</td>
+                <td>@_liste.Final</td>
+                <td>@_liste.Ortalama</td>
+            </tr>
+            }
+        </tbody>
+    </table>
+</div>
+
