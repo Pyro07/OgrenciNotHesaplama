@@ -1,19 +1,23 @@
-namespace Test4.Models
+namespace WebApplication2.Models
 {
     using System;
+    using System.Collections.Generic;
+    using System.ComponentModel.DataAnnotations;
+    using System.ComponentModel.DataAnnotations.Schema;
     using System.Data.Entity;
     using System.Linq;
+    using System.Web.Mvc;
 
-    public class OgrenciListeleriDB : DbContext
+    public class MyDB : DbContext
     {
-        // Your context has been configured to use a 'OgrenciListeleriDB' connection string from your application's 
+        // Your context has been configured to use a 'MyDB' connection string from your application's 
         // configuration file (App.config or Web.config). By default, this connection string targets the 
-        // 'Test4.Models.OgrenciListeleriDB' database on your LocalDb instance. 
+        // 'WebApplication2.Models.MyDB' database on your LocalDb instance. 
         // 
-        // If you wish to target a different database and/or database provider, modify the 'OgrenciListeleriDB' 
+        // If you wish to target a different database and/or database provider, modify the 'MyDB' 
         // connection string in the application configuration file.
-        public OgrenciListeleriDB()
-            : base("name=OgrenciListeleriDB")
+        public MyDB()
+            : base("name=MyDB")
         {
         }
 
@@ -23,6 +27,7 @@ namespace Test4.Models
         // public virtual DbSet<MyEntity> MyEntities { get; set; }
         public virtual DbSet<Ders> Dersler { get; set; }
         public virtual DbSet<Ogrenci> Ogrenciler { get; set; }
+
     }
 
     //public class MyEntity
@@ -30,6 +35,7 @@ namespace Test4.Models
     //    public int Id { get; set; }
     //    public string Name { get; set; }
     //}
+
     public class Ders
     {
         public int Id { get; set; }
@@ -38,13 +44,24 @@ namespace Test4.Models
 
     public class Ogrenci
     {
+        [Key]
         public int Id { get; set; }
+
+        public int OgrenciNumarasi { get; set; }
         public string Ad { get; set; }
         public string Soyad { get; set; }
-        public int Numara { get; set; }
-        public Ders DersinAdi { get; set; }
+
+        public int DersId { get; set; }
+        //[Display(Name ="Ders")]
+        //public IEnumerable<SelectListItem> DersId { get; set; }
+        public string DersinAdi { get; set; }
         public double Vize { get; set; }
         public double Final { get; set; }
         public double Ortalama { get; set; }
+
+        [NotMapped]
+        public List<SelectListItem> DersList { get; set; }
+        //[NotMapped]
+        //public List<SelectListItem> DersList { get; set; }
     }
 }

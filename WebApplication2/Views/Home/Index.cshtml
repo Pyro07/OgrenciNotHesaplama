@@ -1,0 +1,91 @@
+﻿@using WebApplication2.Models
+@model WebApplication2.Models.Ogrenci
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_LayoutPage1.cshtml";
+}
+
+@using (Html.BeginForm("OgrenciKaydet", "Home", FormMethod.Post))
+{
+    <div>
+        <form class="form-horizontal" role="form">
+            <div class="form-group row">
+                <label class="control-label col-sm-3">Öğrencinin Numarasını Giriniz:</label>
+                <div class="col-sm-3">
+                    @Html.TextBoxFor(o => o.OgrenciNumarasi, new { @class = "form-control" })
+                </div>
+            </div>
+            <div class="form-group row">
+                <label class="control-label col-sm-3">Öğrencinin Adını Giriniz:</label>
+                <div class="col-sm-3">
+                    @Html.TextBoxFor(o => o.Ad, new { @class = "form-control" })
+                </div>
+            </div>
+            <div class="form-group row">
+                <label class="control-label col-sm-3">Öğrencinin Soyadını Giriniz:</label>
+                <div class="col-sm-3">
+                    @Html.TextBoxFor(o => o.Soyad, new { @class = "form-control" })
+                </div>
+            </div>
+            <div class="form-group row">
+                <label class="control-label col-sm-3">Dersi Seçiniz:</label>
+                <div class="col-sm-3">
+                    @*@Html.DropDownListFor(o => o.DersId, Model.DersList, new { @class = "form-control" })*@
+                    @*@Html.DropDownListFor(o => o.DersId, (IEnumerable<SelectListItem>)Model.DersList, new { @class ="form-control" })*@
+                    @Html.DropDownListFor(o => o.DersId, new SelectList(ViewBag.dersler, "Id", "DersAdi"), new { @class = "form-control" })
+                </div>
+            </div>
+            <div class="form-group row">
+                <label class="control-label col-sm-3">Vize Notunu Giriniz:</label>
+                <div class="col-sm-3">
+                    @Html.TextBoxFor(o => o.Vize, new { @class = "form-control" })
+                </div>
+            </div>
+            <div class="form-group row">
+                <label class="control-label col-sm-3">Final Notunu Giriniz:</label>
+                <div class="col-sm-3">
+                    @Html.TextBoxFor(o => o.Final, new { @class = "form-control" })
+                </div>
+            </div>
+            <div class="form-group row">
+                <div class="col-sm-offset-3 col-sm-10">
+                    <input type="submit" class="btn btn-success" value="Hesapla" />
+                </div>
+            </div>
+        </form>
+    </div>
+
+    <br />
+    <div class="container" style="width:1050px;background:#ebeff2">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Öğrencinin Numarası</th>
+                    <th>Öğrencinin Adı</th>
+                    <th>Öğrencinin Soyadı</th>
+                    <th>Ders Adı</th>
+                    <th>Vize</th>
+                    <th>Final</th>
+                    <th>Ortalama</th>
+                    <th>Sil</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in ViewBag.ogrenciler)
+                {
+                    <tr>
+                        <td>@item.OgrenciNumarasi</td>
+                        <td>@item.Ad</td>
+                        <td>@item.Soyad</td>
+                        <td>@item.DersinAdi</td>
+                        <td>@item.Vize</td>
+                        <td>@item.Final</td>
+                        <td>@item.Ortalama</td>
+                        <td>@Html.ActionLink("Sil", "OgrenciSil", new { id = item.Id }, new { @class = "btn btn-danger" })</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+}

@@ -1,0 +1,64 @@
+﻿@using WebApplication2.Models
+@model WebApplication2.Models.Ders
+@{
+    /**/
+
+    ViewBag.Title = "DersEkle";
+    Layout = "~/Views/Shared/_LayoutPage1.cshtml";
+}
+
+@using (Html.BeginForm("DersEkle", "Home", FormMethod.Post))
+{
+    <div>
+        <form class="form-horizontal" role="form">
+            <div class="form-group row">
+                <label class="control-label col-sm-3">Ders Adı Giriniz:</label>
+                <div class="col-sm-3">
+                    @Html.TextBoxFor(d => d.DersAdi, new { @class = "form-control", autofocus = true })
+                </div>
+            </div>
+            <div class="form-group row">
+                <div class="col-sm-offset-3 col-sm-10">
+                    <input type="submit" class="btn btn-success" value="Ekle" />
+                </div>
+            </div>
+        </form>
+    </div><br />
+    <div class="container" style="width:500px;background:#ebeff2">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Ders Numarası</th>
+                    <th>Ders Adı</th>
+                    <th>Sil</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in ViewBag.dersler)
+                {
+                    <tr>
+                        <td>@item.Id</td>
+                        <td>@item.DersAdi</td>
+                        <td>@Html.ActionLink("Sil", "DersSil", new { id = item.Id }, new { @class = "btn btn-danger" })</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+}
+@if(ViewBag.Hata !=null)
+{
+    <div class="alert alert-danger">@ViewBag.Hata</div>
+}
+@if (ViewBag.Sonuc != null)
+{
+    <p class="alert alert-success">@ViewBag.Sonuc</p>
+}
+@if (ViewBag.Mesaj != null)
+{
+    <p class="alert alert-success">@ViewBag.Mesaj</p>
+}
+
+
+
+
